@@ -1,0 +1,65 @@
+{
+  "name": "rag-agent-component",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Floating chat component for RAG (Retrieval-Augmented Generation) applications",
+  "keywords": [
+    "react",
+    "chat",
+    "rag",
+    "ai",
+    "floating-widget"
+  ],
+  "author": "Krzysztof & Leo krzysztofjustjust@gmail.com",
+  "license": "",
+  "type": "module",
+  "main": "./dist/rag-agent.umd.js",
+  "module": "./dist/rag-agent.es.js",
+  "types": "./dist/RAGAgent.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/rag-agent.es.js",
+      "require": "./dist/rag-agent.umd.js"
+    },
+    "./styles.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.7",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-query": "^3.39.3",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss": "^4.0.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.19.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.22.0",
+    "vite": "^6.1.0"
+  },
+  "peerDependencies": {
+    "lucide-react": "^0.475.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

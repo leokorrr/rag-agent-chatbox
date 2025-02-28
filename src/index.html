@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAG Chat Widget</title>
+  <script>
+    // Odbieramy parametry z URL
+    const params = new URLSearchParams(window.location.search);
+    window.RAG_CONFIG = {
+      apiEndpoint: params.get('apiEndpoint') || 'http://localhost:8000/query',
+      position: params.get('position') || 'bottom-right'
+    };
+  </script>
+</head>
+<body style="margin: 0; padding: 0;">
+  <div id="root"></div>
+</body>
+</html> 
