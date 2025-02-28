@@ -1,21 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/vite.svg"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Vite + React + TS</title>
     <script>
       // Odbieramy parametry z URL
-      const params = new URLSearchParams(window.location.search);
+      const params = new URLSearchParams(window.location.search)
       window.RAG_CONFIG = {
         apiEndpoint: params.get('apiEndpoint') || 'http://localhost:8000/query',
         position: params.get('position') || 'bottom-right'
-      };
+      }
     </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script
+      type="module"
+      src="/src/main.tsx"
+    ></script>
   </body>
 </html>
