@@ -15,7 +15,7 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
   const queryParams = new URLSearchParams(window.location.search)
   const apiEndpoint = queryParams.get('apiEndpoint')
   const agentId = queryParams.get('agentId')
-  const shopUrl = queryParams.get('shopUrl')
+  const shopUrl = document.referrer
   const shopToken = queryParams.get('shopToken')
 
   const {
