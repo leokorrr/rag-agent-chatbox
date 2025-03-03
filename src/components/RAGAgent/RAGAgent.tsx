@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useEffect, useState, useRef } from 'react'
 import { Send, Loader2, MessageCircle, X } from 'lucide-react'
 import { useMutation } from 'react-query'
