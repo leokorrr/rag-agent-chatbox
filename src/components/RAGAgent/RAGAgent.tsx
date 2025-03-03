@@ -17,6 +17,8 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
   const agentId = queryParams.get('agentId')
   const shopUrl = document.referrer
   const shopToken = queryParams.get('shopToken')
+  console.log(shopUrl)
+  console.log(shopToken)
 
   const {
     mutate: sendMessage,
