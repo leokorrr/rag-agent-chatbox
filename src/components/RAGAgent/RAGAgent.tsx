@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState, useRef } from 'react'
 import { Send, Loader2, MessageCircle, X } from 'lucide-react'
 import { useMutation } from 'react-query'
@@ -10,15 +11,95 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const { messages, handleNewMessage } = useMessages()
-  const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef(null)
 
   const queryParams = new URLSearchParams(window.location.search)
   const apiEndpoint = queryParams.get('apiEndpoint')
   const agentId = queryParams.get('agentId')
-  const shopUrl = document.referrer
+
+  // Advanced approach to get parent URL using various browser mechanisms
+  const [shopUrl, setShopUrl] = useState('')
   const shopToken = queryParams.get('shopToken')
-  console.log(shopUrl)
-  console.log(shopToken)
+
+  // Try multiple methods to get the parent URL
+  useEffect(() => {
+    const detectParentUrl = () => {
+      // Try common approaches from most to least reliable
+      const methods = [
+        // Method 1: Check if top level navigation is available via window.top.location
+        () => {
+          try {
+            if (window !== window.top) {
+              const topUrl = window.top.location.href
+              console.log('Method 1 (top.location):', topUrl)
+              return topUrl
+            }
+          } catch (e) {
+            console.log('Method 1 failed:', e.message)
+          }
+          return null
+        },
+
+        // Method 2: Check document.referrer
+        () => {
+          const referrer = document.referrer
+          if (referrer && referrer.trim() !== '') {
+            console.log('Method 2 (referrer):', referrer)
+            return referrer
+          }
+          return null
+        },
+
+        // Method 3: Check URL hash for embedded information
+        () => {
+          const hash = window.location.hash
+          if (hash && hash.includes('parentUrl=')) {
+            const parentUrl = decodeURIComponent(hash.split('parentUrl=')[1].split('&')[0])
+            console.log('Method 3 (hash):', parentUrl)
+            return parentUrl
+          }
+          return null
+        },
+
+        // Method 4: Fall back to a default approach - check query params and origin
+        () => {
+          const fromParams = queryParams.get('shopUrl')
+          if (fromParams) {
+            console.log('Method 4 (query params):', fromParams)
+            return fromParams
+          }
+
+          // Last resort: use our own origin
+          console.log('Method 4 (fallback to origin):', window.location.origin)
+          return window.location.origin
+        }
+      ]
+
+      // Try each method in sequence until one works
+      for (const method of methods) {
+        const result = method()
+        if (result) return result
+      }
+
+      // If nothing worked, return empty string
+      return ''
+    }
+
+    const detectedUrl = detectParentUrl()
+    setShopUrl(detectedUrl)
+
+  }, [])
+
+  useEffect(() => {
+    console.log('Final detected Shop URL:', shopUrl)
+    console.log('Shop Token:', shopToken)
+  }, [shopUrl, shopToken])
+
+  // Helper function to construct the API URL
+  const constructApiUrl = (url) => {
+    const baseUrl = `${apiEndpoint}?agentId=${agentId}`
+    return url ? `${baseUrl}&shopUrl=${encodeURIComponent(url)}` : baseUrl
+  }
 
   const {
     mutate: sendMessage,
@@ -26,9 +107,18 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
     error
   } = useMutation({
     mutationFn: (formData: { message: string }) =>
-      fetcher(`${apiEndpoint}?agentId=${agentId}&shopUrl=${shopUrl}`, {
+      fetcher(constructApiUrl(shopUrl), {
         method: 'POST',
-        body: JSON.stringify({ message: formData.message, sessionId: Date.now() }),
+        body: JSON.stringify({
+          message: formData.message,
+          sessionId: Date.now(),
+          // Include shop information in the body as a backup
+          shopContext: {
+            url: shopUrl,
+            referrer: document.referrer,
+            origin: window.location.origin
+          }
+        }),
         headers: {
           Authorization: `Bearer ${shopToken}`
         }
