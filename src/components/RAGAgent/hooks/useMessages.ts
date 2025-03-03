@@ -10,7 +10,7 @@ type TMessage = {
 export const useMessages = () => {
   const [messages, setMessages] = useState<TMessage[]>([
     {
-      message: '👋 Hi! I am Sheldon AI, ask me anything about Chatbase!',
+      message: '👋 Hi! I am Sheldon, ask me anything about this shop!',
       author: 'agent',
       timestamp: dayjs().format('HH:mm')
     },
