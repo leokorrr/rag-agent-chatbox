@@ -7,18 +7,30 @@ import { fetcher } from '../../utils/reactQuery/fetcher'
 import { getButtonPosition } from '../../utils/getButtonPosition'
 import { cn } from '../../utils/cn'
 import { useMessages } from './hooks/useMessages'
-
-const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) => {
+const FloatingRAGAgent = ({
+  apiEndpoint,
+  agentId,
+  shopUrl,
+  shopToken,
+  buttonPosition = 'bottom-right',
+  className = ''
+}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const { messages, handleNewMessage } = useMessages()
   const messagesContainerRef = useRef<HTMLDivElement>(null)
 
-  const queryParams = new URLSearchParams(window.location.search)
-  const apiEndpoint = queryParams.get('apiEndpoint')
-  const agentId = queryParams.get('agentId')
-  const shopUrl = document.referrer
-  const shopToken = queryParams.get('shopToken')
+// const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) => {
+//   const [isOpen, setIsOpen] = useState(false)
+//   const [query, setQuery] = useState('')
+//   const { messages, handleNewMessage } = useMessages()
+//   const messagesContainerRef = useRef<HTMLDivElement>(null)
+
+//   const queryParams = new URLSearchParams(window.location.search)
+//   const apiEndpoint = queryParams.get('apiEndpoint')
+//   const agentId = queryParams.get('agentId')
+//   const shopUrl = document.referrer
+//   const shopToken = queryParams.get('shopToken')
 
   const {
     mutate: sendMessage,
