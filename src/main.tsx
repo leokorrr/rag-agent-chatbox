@@ -1,29 +1,14 @@
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import './index.css'
-// import App from './App.tsx'
-
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
+  import './index.css'
 import { createRoot } from 'react-dom/client'
-import FloatingRAGAgent from './components/RAGAgent/RAGAgent'
+import App from './App'
 
-window.mountChatWidget = (config) => {
-  const { containerId, apiEndpoint, agentId, shopUrl, shopToken, buttonPosition } = config;
-  const container = document.getElementById(containerId);
-  if (!container) return;
+    window.mountChatWidget = (config) => {
 
-  const root = createRoot(container);
-  root.render(
-    <FloatingRAGAgent
-      apiEndpoint={apiEndpoint}
-      agentId={agentId}
-      shopUrl={shopUrl}
-      shopToken={shopToken}
-      buttonPosition={buttonPosition}
-    />
-  );
-};
+      const container = document.getElementById(config.containerId);
+      if (!container) return;
+    
+      const root = createRoot(container);
+      root.render(
+      <App config={config}/>
+      );
+    };
