@@ -7,13 +7,12 @@
     const shopToken = script.getAttribute('data-shop-token') || '';
     const position = script.getAttribute('data-position') || 'bottom-right';
   
-    // Tworzymy kontener na widget
     const container = document.createElement('div');
     container.id = 'sheldon-chat-widget-container';
     document.body.appendChild(container);
   
     const scriptEl = document.createElement('script');
-    scriptEl.src = 'https://agent.sheldonai.net/sheldon-chat-widget.js';//tutaj wpisać link po buildzie 
+    scriptEl.src = '/sheldon-chat-widget.js'
     scriptEl.defer = true;
     scriptEl.onload = () => {
       if (window.mountChatWidget) {
