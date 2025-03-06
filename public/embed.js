@@ -8,7 +8,8 @@
     const position = script.getAttribute('data-position') || 'bottom-right';
     
 
-    const baseUrl = script.getAttribute('data-base-url') || 'https://agent.sheldonai.net';
+    // const baseUrl = script.getAttribute('data-base-url') || 'https://agent.sheldonai.net';
+    const baseUrl = script.getAttribute('data-base-url') || 'http://localhost:5173';
   
     const container = document.createElement('div');
     container.id = 'sheldon-chat-widget-container';
@@ -30,7 +31,10 @@
     
 
   const widgetScriptUrl = `${baseUrl}/sheldon-chat-widget.iife.js`;
-  
+  const styleEl = document.createElement('link')
+  styleEl.rel = 'stylesheet'
+  styleEl.href = `${baseUrl}/sheldon-chat-widget.css`
+  document.head.appendChild(styleEl)
     const loadDependencies = reactAlreadyLoaded
       ? Promise.resolve()
       : Promise.all([

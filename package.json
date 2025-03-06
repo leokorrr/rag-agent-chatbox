@@ -34,6 +34,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.11",
     "@tailwindcss/vite": "^4.0.7",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
@@ -50,6 +51,7 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.19.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
