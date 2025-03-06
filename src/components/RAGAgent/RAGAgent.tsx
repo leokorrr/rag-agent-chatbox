@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { useEffect, useState, useRef } from 'react'
 import { Send, Loader2, MessageCircle, X } from 'lucide-react'
 import { useMutation } from 'react-query'
@@ -19,18 +17,6 @@ const FloatingRAGAgent = ({
   const [query, setQuery] = useState('')
   const { messages, handleNewMessage } = useMessages()
   const messagesContainerRef = useRef<HTMLDivElement>(null)
-
-// const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) => {
-//   const [isOpen, setIsOpen] = useState(false)
-//   const [query, setQuery] = useState('')
-//   const { messages, handleNewMessage } = useMessages()
-//   const messagesContainerRef = useRef<HTMLDivElement>(null)
-
-//   const queryParams = new URLSearchParams(window.location.search)
-//   const apiEndpoint = queryParams.get('apiEndpoint')
-//   const agentId = queryParams.get('agentId')
-//   const shopUrl = document.referrer
-//   const shopToken = queryParams.get('shopToken')
 
   const {
     mutate: sendMessage,
@@ -97,7 +83,7 @@ const FloatingRAGAgent = ({
       <button
         onClick={() => setIsOpen(true)}
         className={cn(
-          'fixed z-50 p-4 bg-black text-white rounded-full shadow-lg hover:bg-gray-900 transition-all duration-300',
+          'fixed z-99999 p-4 bg-black text-white rounded-full shadow-lg hover:bg-gray-900 transition-all duration-300',
           getButtonPosition(buttonPosition),
           isOpen ? 'scale-0' : 'scale-100'
         )}
@@ -108,7 +94,7 @@ const FloatingRAGAgent = ({
       {isOpen && (
         <div
           className='fixed right-4 bottom-4 w-96 max-w-[calc(100vw-2rem)]
-        border rounded-2xl border-gray-300 bg-white shadow-xl transition-all duration-300 transform z-50'
+        border rounded-2xl border-gray-300 bg-white shadow-xl transition-all duration-300 transform z-99999'
         >
           {/* Header */}
           <div className='flex justify-between items-center rounded-t-2xl p-4 bg-black border-b'>
