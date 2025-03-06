@@ -8,8 +8,8 @@
     const position = script.getAttribute('data-position') || 'bottom-right';
     
 
-    // const baseUrl = script.getAttribute('data-base-url') || 'https://agent.sheldonai.net';
-    const baseUrl = script.getAttribute('data-base-url') || 'http://localhost:5173';
+    const baseUrl = script.getAttribute('data-base-url') || 'https://agent.sheldonai.net';
+    // const baseUrl = script.getAttribute('data-base-url') || 'http://localhost:5173';
   
     const container = document.createElement('div');
     container.id = 'sheldon-chat-widget-container';
