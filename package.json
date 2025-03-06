@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && node postbuild.js",
+    "build": "tsc && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
