@@ -10,11 +10,25 @@
     const container = document.createElement('div');
     container.id = 'sheldon-chat-widget-container';
     document.body.appendChild(container);
-  
-    const scriptEl = document.createElement('script');
-    scriptEl.src = 'https://agent.sheldonai.net/sheldon-chat-widget.js';
-    scriptEl.defer = true;
-    scriptEl.onload = () => {
+
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        const scriptEl = document.createElement('script');
+        scriptEl.src = src;
+        scriptEl.defer = true;
+        scriptEl.onload = resolve;
+        scriptEl.onerror = reject;
+        document.body.appendChild(scriptEl);
+      });
+    };
+
+    Promise.all([
+      loadScript('https://unpkg.com/react@18/umd/react.production.min.js'),
+      loadScript('https://unpkg.com/react-dom@18/umd/react-dom.production.min.js')
+    ]).then(() => {
+      // Ładujemy nasz widget
+      return loadScript('https://agent.sheldonai.net/sheldon-chat-widget.js');
+    }).then(() => {
       if (window.mountChatWidget) {
         window.mountChatWidget({
           containerId: 'sheldon-chat-widget-container',
@@ -25,8 +39,9 @@
           buttonPosition: position
         });
       }
-    };
-    document.body.appendChild(scriptEl);
+    }).catch(error => {
+      console.error('Błąd ładowania skryptów:', error);
+    });
 })();
   
 // TODO Zostało zbudowć 
