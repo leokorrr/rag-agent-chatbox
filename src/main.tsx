@@ -11,21 +11,8 @@
 import { createRoot } from 'react-dom/client'
 import FloatingRAGAgent from './components/RAGAgent/RAGAgent'
 
-window.mountChatWidget = ({
-  containerId,
-  apiEndpoint,
-  agentId,
-  shopUrl,
-  shopToken,
-  buttonPosition
-}: {
-  containerId: string;
-  apiEndpoint: string;
-  agentId: string;
-  shopUrl: string;
-  shopToken: string;
-  buttonPosition: string;
-}) => {
+window.mountChatWidget = (config) => {
+  const { containerId, apiEndpoint, agentId, shopUrl, shopToken, buttonPosition } = config;
   const container = document.getElementById(containerId);
   if (!container) return;
 

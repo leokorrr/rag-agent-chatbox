@@ -1,26 +1,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   build: {
-    outDir: 'dist',
     lib: {
-      entry: './src/main.tsx',
+      entry: './src/main.tsx', 
       name: 'SheldonChatWidget',
       fileName: 'sheldon-chat-widget',
-      formats: ['umd']
+      formats: ['iife']
     },
     rollupOptions: {
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name === 'style.css') return 'sheldon-chat-widget.css';
+          return assetInfo.name!;
         }
       }
     }
   }
 })
-
