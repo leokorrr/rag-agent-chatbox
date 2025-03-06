@@ -12,7 +12,7 @@
     document.body.appendChild(container);
   
     const scriptEl = document.createElement('script');
-    scriptEl.src = '/sheldon-chat-widget.js'
+    scriptEl.src = '/sheldon-chat-widget.js';
     scriptEl.defer = true;
     scriptEl.onload = () => {
       if (window.mountChatWidget) {
