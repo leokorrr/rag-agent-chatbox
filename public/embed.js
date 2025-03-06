@@ -13,7 +13,7 @@
     document.body.appendChild(container);
   
     const scriptEl = document.createElement('script');
-    scriptEl.src = 'https://cdn.twojczat.com/sheldon-chat-widget.js';//tutaj wpisać link po buildzie 
+    scriptEl.src = 'https://agent.sheldonai.net/sheldon-chat-widget.js';//tutaj wpisać link po buildzie 
     scriptEl.defer = true;
     scriptEl.onload = () => {
       if (window.mountChatWidget) {
