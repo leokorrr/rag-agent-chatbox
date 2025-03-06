@@ -7,7 +7,7 @@
     const shopToken = script.getAttribute('data-shop-token') || '';
     const position = script.getAttribute('data-position') || 'bottom-right';
     
-    // Dodajemy parametr baseUrl, który pozwoli na określenie podstawowego adresu URL
+
     const baseUrl = script.getAttribute('data-base-url') || 'https://agent.sheldonai.net';
   
     const container = document.createElement('div');
@@ -25,13 +25,12 @@
       });
     };
 
-    // Sprawdzamy, czy React i ReactDOM są już dostępne w oknie
+
     const reactAlreadyLoaded = typeof window.React !== 'undefined' && typeof window.ReactDOM !== 'undefined';
     
-    // Modyfikujemy ścieżkę do pliku widgetu, używając baseUrl
-    const widgetScriptUrl = `${baseUrl}/sheldon-chat-widget.iife.js`;
 
-    // Ładujemy React i ReactDOM tylko jeśli nie są już załadowane
+  const widgetScriptUrl = `${baseUrl}/sheldon-chat-widget.iife.js`;
+  
     const loadDependencies = reactAlreadyLoaded
       ? Promise.resolve()
       : Promise.all([
@@ -61,7 +60,3 @@
         console.error('Błąd ładowania skryptów:', error);
       });
 })();
-  
-// TODO Zostało zbudowć 
-// TODO wrzucic na vercel 
-// TODO podpiać link poprawny wyżej
