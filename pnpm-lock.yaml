@@ -8,15 +8,6 @@ importers:
 
   .:
     dependencies:
-<<<<<<< Updated upstream
-=======
-      '@shopify/app-bridge-react':
-        specifier: ^4.1.7
-        version: 4.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tailwindcss/postcss':
-        specifier: ^4.0.11
-        version: 4.0.11
->>>>>>> Stashed changes
       '@tailwindcss/vite':
         specifier: ^4.0.7
         version: 4.0.7(vite@6.1.1(jiti@2.4.2)(lightningcss@1.29.1))
@@ -497,21 +488,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-<<<<<<< Updated upstream
-=======
-  '@shopify/app-bridge-react@4.1.7':
-    resolution: {integrity: sha512-9LASLaF2ZML0lug/2EapSseac9wg2gaTVGjlkzyWeWt4lWkL4Yg6k1vXoAYy/Wi+nUilplsqCdeJTHngzybPMQ==}
-    peerDependencies:
-      react: ^18.0.0
-      react-dom: ^18.0.0
-
-  '@shopify/app-bridge-types@0.0.17':
-    resolution: {integrity: sha512-7tpnE9tupFhSsbkpDhwOb8rCI2Yx9q9KJIgvaSjTxW8mwe2/Eg/yIevzl2sUUvSx708X4wFmF0TJpUqhsguiqg==}
-
-  '@tailwindcss/node@4.0.11':
-    resolution: {integrity: sha512-y1Ko/QaZh6Fv8sSOOPpRztT8nvNKSetvE4CLxsDdyY5kkBS7hKq04D3y3ldelniWe6YqRIzBHTzfAIc1hZ+0FA==}
-
->>>>>>> Stashed changes
   '@tailwindcss/node@4.0.7':
     resolution: {integrity: sha512-dkFXufkbRB2mu3FPsW5xLAUWJyexpJA+/VtQj18k3SUiJVLdpgzBd1v1gRRcIpEJj7K5KpxBKfOXlZxT3ZZRuA==}
 
@@ -1701,23 +1677,6 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.34.8':
     optional: true
 
-<<<<<<< Updated upstream
-=======
-  '@shopify/app-bridge-react@4.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
-    dependencies:
-      '@shopify/app-bridge-types': 0.0.17
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-
-  '@shopify/app-bridge-types@0.0.17': {}
-
-  '@tailwindcss/node@4.0.11':
-    dependencies:
-      enhanced-resolve: 5.18.1
-      jiti: 2.4.2
-      tailwindcss: 4.0.11
-
->>>>>>> Stashed changes
   '@tailwindcss/node@4.0.7':
     dependencies:
       enhanced-resolve: 5.18.1
