@@ -34,6 +34,11 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
+<<<<<<< Updated upstream
+=======
+    "@shopify/app-bridge-react": "^4.1.7",
+    "@tailwindcss/postcss": "^4.0.11",
+>>>>>>> Stashed changes
     "@tailwindcss/vite": "^4.0.7",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
