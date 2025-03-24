@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
+  import './index.css'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import App from './App'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    window.mountChatWidget = (config) => {
+
+      const container = document.getElementById(config.containerId);
+      if (!container) return;
+    
+      const root = createRoot(container);
+      root.render(
+      <App config={config}/>
+      );
+    };

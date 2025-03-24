@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { useEffect, useState, useRef } from 'react'
 import { Send, Loader2, MessageCircle, X } from 'lucide-react'
 import { useMutation } from 'react-query'
@@ -8,17 +6,86 @@ import { getButtonPosition } from '../../utils/getButtonPosition'
 import { cn } from '../../utils/cn'
 import { useMessages } from './hooks/useMessages'
 
-const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) => {
+interface FloatingRAGAgentProps {
+  apiEndpoint: string;
+  agentId: string;
+  shopUrl: string;
+  shopToken: string;
+  buttonPosition?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  className?: string;
+}
+
+const FloatingRAGAgent = ({
+  apiEndpoint,
+  agentId,
+  shopUrl,
+  shopToken,
+  buttonPosition = 'bottom-right',
+  className = ''
+}: FloatingRAGAgentProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
+  const [messagesHeight, setMessagesHeight] = useState<number>(384)
   const { messages, handleNewMessage } = useMessages()
+  
   const messagesContainerRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+  const footerRef = useRef<HTMLDivElement>(null)
+  const chatContainerRef = useRef<HTMLDivElement>(null)
 
-  const queryParams = new URLSearchParams(window.location.search)
-  const apiEndpoint = queryParams.get('apiEndpoint')
-  const agentId = queryParams.get('agentId')
-  const shopUrl = document.referrer
-  const shopToken = queryParams.get('shopToken')
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkIsMobile()
+    
+    window.addEventListener('resize', checkIsMobile)
+    
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
+  
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen, isMobile])
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const calculateMessagesHeight = () => {
+      if (isMobile && chatContainerRef.current && headerRef.current && formRef.current && footerRef.current) {
+        const chatHeight = chatContainerRef.current.clientHeight;
+        const headerHeight = headerRef.current.clientHeight;
+        const formHeight = formRef.current.clientHeight;
+        const footerHeight = footerRef.current.clientHeight;
+        
+        const availableHeight = chatHeight - headerHeight - formHeight - footerHeight;
+        
+        setMessagesHeight(availableHeight);
+      } else {
+        setMessagesHeight(384); // 384px = h-96
+      }
+    };
+
+    const timer = setTimeout(calculateMessagesHeight, 100);
+    
+    window.addEventListener('resize', calculateMessagesHeight);
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', calculateMessagesHeight);
+    };
+  }, [isOpen, isMobile, messages.length]);
 
   const {
     mutate: sendMessage,
@@ -85,7 +152,7 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
       <button
         onClick={() => setIsOpen(true)}
         className={cn(
-          'fixed z-50 p-4 bg-black text-white rounded-full shadow-lg hover:bg-gray-900 transition-all duration-300',
+          'fixed z-99999 p-4 bg-black text-white rounded-full shadow-lg hover:bg-gray-900 transition-all duration-300',
           getButtonPosition(buttonPosition),
           isOpen ? 'scale-0' : 'scale-100'
         )}
@@ -95,11 +162,22 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
 
       {isOpen && (
         <div
-          className='fixed right-4 bottom-4 w-96 max-w-[calc(100vw-2rem)]
-        border rounded-2xl border-gray-300 bg-white shadow-xl transition-all duration-300 transform z-50'
+          ref={chatContainerRef}
+          className={cn(
+            'fixed border border-gray-300 bg-white shadow-xl transition-all duration-300 transform z-99999',
+            isMobile 
+              ? 'inset-0 w-full h-full rounded-none' 
+              : 'right-4 bottom-4 w-96 max-w-[calc(100vw-2rem)] rounded-2xl'
+          )}
         >
           {/* Header */}
-          <div className='flex justify-between items-center rounded-t-2xl p-4 bg-black border-b'>
+          <div 
+            ref={headerRef}
+            className={cn(
+              'flex justify-between items-center p-4 bg-black border-b',
+              isMobile ? '' : 'rounded-t-2xl'
+            )}
+          >
             <div className='flex items-center gap-3'>
               <div className='w-8 h-8 rounded-full bg-white flex items-center justify-center text-black font-bold'>
                 S
@@ -117,13 +195,17 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
           {/* Messages */}
           <div
             ref={messagesContainerRef}
-            className='h-96 overflow-y-auto p-4 bg-white scroll-smooth'
+            className={cn(
+              'overflow-y-auto p-4 bg-white scroll-smooth',
+              isMobile ? '' : 'h-96'
+            )}
+            style={isMobile ? { height: `${messagesHeight}px` } : {}}
           >
-            {error && (
+            {error ? (
               <div className='mb-4 p-3 bg-red-50 text-red-700 rounded-lg'>
                 {error instanceof Error ? error.message : 'Something went wrong'}
               </div>
-            )}
+            ) : null}
 
             {messages?.map((message, index) => (
               <div
@@ -155,6 +237,7 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
 
           {/* Input form */}
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             className='p-4 border-t border-gray-200'
           >
@@ -180,8 +263,14 @@ const FloatingRAGAgent = ({ className = '', buttonPosition = 'bottom-right' }) =
               </button>
             </div>
           </form>
-          <div className='px-4 py-2.5 border-t border-gray-200 bg-gray-100 rounded-b-2xl'>
-            <p className='text-sm text-gray-500'>
+          <div 
+            ref={footerRef}
+            className={cn(
+              'px-4 py-3 border-t border-gray-200 bg-gray-100', 
+              isMobile ? '' : 'rounded-b-2xl'
+            )}
+          >
+            <p className='text-sm text-gray-500 text-center'>
               New line in the message? Press Shift + Enter
             </p>
           </div>

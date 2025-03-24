@@ -10,10 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return
   }
 
+  // console.log(window.RAG_CONFIG)
+
   const container = document.createElement('div')
   container.id = 'rag-widget-root'
   document.body.appendChild(container)
 
   const root = ReactDOM.createRoot(container)
-  root.render(<App />)
+  root.render(<App config={window.RAG_CONFIG} />)
 })

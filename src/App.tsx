@@ -1,13 +1,18 @@
-import { useEffect } from 'react'
-import RAGAgent from './components/RAGAgent/RAGAgent'
+import FloatingRAGAgent from './components/RAGAgent/RAGAgent'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-function App() {
+function App({ config }) {
   const queryClient = new QueryClient()
 
   return (
     <QueryClientProvider client={queryClient}>
-      <RAGAgent></RAGAgent>
+     <FloatingRAGAgent
+          apiEndpoint={config.apiEndpoint}
+          agentId={config.agentId}
+          shopUrl={config.shopUrl}
+          shopToken={config.shopToken}
+          buttonPosition={config.buttonPosition}
+        />
     </QueryClientProvider>
   )
 }
