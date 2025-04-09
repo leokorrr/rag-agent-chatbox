@@ -6,12 +6,10 @@
     const shopUrl = script.getAttribute('data-shop-url') || window.location.origin;
     const shopToken = script.getAttribute('data-shop-token') || '';
     const position = script.getAttribute('data-position') || 'bottom-right';
-<<<<<<< HEAD
 
 
     // const baseUrl = script.getAttribute('data-base-url') || 'https://agent.sheldonai.net';
 
->>>>>>> main
     const container = document.createElement('div');
     container.id = 'sheldon-chat-widget-container';
     document.body.appendChild(container);
