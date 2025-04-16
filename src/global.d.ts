@@ -8,7 +8,11 @@ declare global {
       agentId,
       shopUrl,
       shopToken,
-      buttonPosition
+      buttonPosition,
+      header,
+      footer,
+      placeholder,
+      initialMessage
     }: {
       containerId: string;
       apiEndpoint: string;
@@ -16,6 +20,10 @@ declare global {
       shopUrl: string;
       shopToken: string;
       buttonPosition: string;
+      header: string;
+      footer: string;
+      placeholder: string;
+      initialMessage: string;
     }) => void;
   }
 }

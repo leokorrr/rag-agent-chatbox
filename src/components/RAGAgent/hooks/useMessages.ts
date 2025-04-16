@@ -7,10 +7,10 @@ type TMessage = {
   timestamp: string
 }
 
-export const useMessages = () => {
+export const useMessages = (initialMessage?: string) => {
   const [messages, setMessages] = useState<TMessage[]>([
     {
-      message: '👋 Hi! I am Sheldon, ask me anything about this shop!',
+      message: initialMessage || "👋 Hi! I'm Sheldon, ask me anything about this shop!",
       author: 'agent',
       timestamp: dayjs().format('HH:mm')
     },

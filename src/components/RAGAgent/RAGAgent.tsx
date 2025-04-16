@@ -12,6 +12,10 @@ interface FloatingRAGAgentProps {
   shopToken: string;
   buttonPosition?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   className?: string;
+  header?: string;
+  footer?: string;
+  placeholder?: string;
+  initialMessage?: string;
 }
 
 const FloatingRAGAgent = ({
@@ -20,13 +24,17 @@ const FloatingRAGAgent = ({
   shopUrl,
   shopToken,
   buttonPosition = 'bottom-right',
-  className = ''
+  className = '',
+  header = 'Sheldon AI - Chat',
+  footer = 'New line in the message? Press Shift + Enter',
+  placeholder = 'Ask me anything...',
+  initialMessage
 }: FloatingRAGAgentProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [isMobile, setIsMobile] = useState(false)
   const [messagesHeight, setMessagesHeight] = useState<number>(384)
-  const { messages, handleNewMessage } = useMessages()
+  const { messages, handleNewMessage } = useMessages(initialMessage) 
   
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
@@ -182,7 +190,7 @@ const FloatingRAGAgent = ({
               <div className="rag-header-avatar">
                 S
               </div>
-              <h3 className="rag-header-title">Sheldon AI - Chat</h3>
+              <h3 className="rag-header-title">{header}</h3>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -242,7 +250,7 @@ const FloatingRAGAgent = ({
                 onKeyDown={handleKeyDown}
                 rows={1}
                 className="rag-textarea"
-                placeholder="Ask me anything..."
+                placeholder={placeholder}
               />
               <button
                 type="submit"
@@ -262,7 +270,7 @@ const FloatingRAGAgent = ({
             className={`rag-footer ${isMobile ? '' : 'rag-footer-desktop'}`}
           >
             <p className="rag-footer-text">
-              New line in the message? Press Shift + Enter
+              {footer}
             </p>
           </div>
         </div>

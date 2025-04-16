@@ -7,6 +7,10 @@ interface RAGConfig {
   shopUrl: string
   shopToken: string
   buttonPosition: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
+  header?: string
+  footer?: string
+  placeholder?: string
+  initialMessage?: string
 }
 
 function App({ config }: { config: RAGConfig }) {
@@ -22,6 +26,10 @@ function App({ config }: { config: RAGConfig }) {
             shopUrl={config.shopUrl}
             shopToken={config.shopToken}
             buttonPosition={config.buttonPosition}
+            header={config.header}
+            footer={config.footer}
+            placeholder={config.placeholder}
+            initialMessage={config.initialMessage}
           />
         </div>
       </div>
