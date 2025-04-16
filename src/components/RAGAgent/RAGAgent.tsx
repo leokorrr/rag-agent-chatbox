@@ -18,6 +18,24 @@ interface FloatingRAGAgentProps {
   initialMessage?: string;
 }
 
+// Komponent wyświetlający kropki ładowania
+const LoadingDots = () => {
+  return (
+    <div className="rag-message">
+      <div className="rag-message-avatar rag-message-avatar-agent">
+        S
+      </div>
+      <div className="rag-message-bubble rag-message-bubble-agent rag-loading-bubble">
+        <div className="rag-loading-dots">
+          <span className="rag-dot"></span>
+          <span className="rag-dot"></span>
+          <span className="rag-dot"></span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FloatingRAGAgent = ({
   apiEndpoint,
   agentId,
@@ -144,7 +162,7 @@ const FloatingRAGAgent = ({
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages])
+  }, [messages, isLoading])
 
   useEffect(() => {
     if (isOpen) {
@@ -235,6 +253,9 @@ const FloatingRAGAgent = ({
                 </div>
               </div>
             ))}
+            
+            {/* Animacja ładowania z kropkami */}
+            {isLoading && <LoadingDots />}
           </div>
 
           {/* Input form */}
@@ -257,11 +278,7 @@ const FloatingRAGAgent = ({
                 disabled={isLoading || !query.trim()}
                 className="rag-submit-button"
               >
-                {isLoading ? (
-                  <Loader2 className="rag-button-icon-small rag-spinner" />
-                ) : (
-                  <Send className="rag-button-icon-small" />
-                )}
+                <Send className="rag-button-icon-small" />
               </button>
             </div>
           </form>

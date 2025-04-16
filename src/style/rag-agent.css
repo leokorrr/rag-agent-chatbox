@@ -1,21 +1,48 @@
-/* RAG Agent Styles */
-
-/* Bazowa wielkość fonta zmieniona z 16px na 10px */
-:root {
-  font-size: 10px;
+/* Definicje czcionki Roboto */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Roboto-Regular.woff2') format('woff2');
+  font-display: swap;
 }
 
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Roboto-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Roboto-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* RAG Agent Styles */
+
 /* Layout and positioning */
-.rag-wrapper {}
+.rag-wrapper {
+  font-family: var(--font-family);
+}
 .rag-chat-button {
   position: fixed;
   z-index: 99999;
-  padding: 1.6rem; /* było 1rem (16px) */
+  padding: 1.2rem; /* było 1rem (16px) */
   background-color: #000000;
   color: #ffffff;
   border-radius: 9999px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   transition: all 300ms;
+  font-family: var(--font-family);
 }
 .rag-chat-button:hover {
   background-color: #111827;
@@ -50,9 +77,9 @@
 /* Chat container */
 .rag-chat-container {
   position: fixed;
-  border: 1px solid #d1d5db;
+  /* border: 1px solid #d1d5db; */
   background-color: #ffffff;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; /* Delikatniejszy cień */
   transition: all 300ms;
   transform: translateX(0) translateY(0);
   z-index: 99999;
@@ -66,7 +93,7 @@
 .rag-chat-container-desktop {
   right: 1.6rem; /* było 1rem (16px) */
   bottom: 1.6rem; /* było 1rem (16px) */
-  width: 38.4rem; /* było 24rem (384px) */
+  width: 38.4rem; /* Mniejsza szerokość, bardziej zgodna z obrazkiem */
   max-width: calc(100vw - 3.2rem); /* było 2rem (32px) */
   border-radius: 1.6rem; /* było 1rem (16px) */
 }
@@ -76,22 +103,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.6rem; /* było 1rem (16px) */
+  padding: 1.2rem 1.6rem; /* Zmniejszony vertical padding */
   background-color: #000000;
-  border-bottom: 1px solid;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: none; /* Usunięcie bordera */
 }
 .rag-header-desktop {
-  border-top-left-radius: 1.6rem; /* było 1rem (16px) */
-  border-top-right-radius: 1.6rem; /* było 1rem (16px) */
+  border-top-left-radius: 1.6rem;
+  border-top-right-radius: 1.6rem;
 }
 .rag-header-title-wrapper {
   display: flex;
   align-items: center;
-  gap: 1.2rem; /* było 0.75rem (12px) */
+  gap: 1rem;
 }
 .rag-header-avatar {
-  width: 3.2rem; /* było 2rem (32px) */
-  height: 3.2rem; /* było 2rem (32px) */
+  width: 3.2rem; /* Jeszcze mniejszy avatar w nagłówku */
+  height: 3.2rem;
   border-radius: 9999px;
   background-color: #ffffff;
   display: flex;
@@ -99,29 +129,40 @@
   justify-content: center;
   color: #000000;
   font-weight: 700;
+  font-size: 1.6rem;
 }
 .rag-header-title {
   font-weight: 500;
   color: #ffffff;
+  font-family: var(--font-family);
+  font-size: 1.4rem; /* Dopasowany rozmiar czcionki */
 }
 .rag-close-button {
-  padding: 0.4rem; /* było 0.25rem (4px) */
+  padding: 0.5rem;
   color: #ffffff;
-  border-radius: 9999px;
+  background-color: transparent;
+  border: none;
+  /* border-radius: 9999px; */
+  display: flex; /* Wyśrodkowanie "X" */
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 .rag-close-button:hover {
   background-color: #1f2937;
 }
 .rag-close-icon {
-  width: 2rem; /* było 1.25rem (20px) */
-  height: 2rem; /* było 1.25rem (20px) */
+  width: 2.2rem; /* Mniejsza ikona zamykania */
+  height: 2.2rem;
 }
 
 /* Messages container */
 .rag-messages {
   overflow-y: auto;
-  padding: 1.6rem; /* było 1rem (16px) */
+  padding: 1.2rem 1.6rem; /* Pełny padding, ale mniejszy niż był */
   background-color: #ffffff;
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
   scroll-behavior: smooth;
 }
 .rag-messages-desktop {
@@ -139,88 +180,208 @@
 .rag-message {
   display: flex;
   align-items: flex-start;
-  gap: 0.8rem; /* było 0.5rem (8px) */
-  margin-bottom: 1.6rem; /* było 1rem (16px) */
+  gap: 0.8rem;
+  margin-bottom: 1.6rem;
 }
 .rag-message-user {
   flex-direction: row-reverse;
 }
 .rag-message-avatar {
-  width: 3.2rem; /* było 2rem (32px) */
-  height: 3.2rem; /* było 2rem (32px) */
+  width: 3.6rem; /* Mniejszy avatar */
+  height: 3.6rem;
   border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
+  flex-shrink: 0; /* Zapobiega zmniejszaniu avatara */
+  font-size: 1.4rem; /* Rozmiar czcionki w avatarze */
 }
 .rag-message-avatar-user {
-  background-color: #4b5563;
+  background-color: #6B7280; /* Bardziej zgodny z obrazkiem kolor */
+  font-size: 1.8rem; /* Mniejszy rozmiar czcionki */
+  font-weight: 600; /* Półgruby */
 }
 .rag-message-avatar-agent {
-  background-color: #000000;
+  background-color: #000000; /* Czarne tło */
+  font-size: 1.8rem; /* Mniejszy rozmiar czcionki */
+  font-weight: 600; /* Półgruby */
 }
 .rag-message-bubble {
-  padding-left: 1.6rem; /* było 1rem (16px) */
-  padding-right: 1.6rem; /* było 1rem (16px) */
-  padding-top: 0.8rem; /* było 0.5rem (8px) */
-  padding-bottom: 0.8rem; /* było 0.5rem (8px) */
+  padding: 1rem 1.4rem; /* Zrównoważony padding */
   max-width: 80%;
   background-color: #f3f4f6;
+  font-size: 1.5rem; /* Mniejszy tekst */
+  line-height: 1.4;
 }
 .rag-message-bubble-user {
-  border-top-left-radius: 1.2rem; /* było 0.75rem (12px) */
-  border-bottom-left-radius: 1.2rem; /* było 0.75rem (12px) */
-  border-bottom-right-radius: 1.2rem; /* było 0.75rem (12px) */
+  background-color: #000000; /* Czarne tło dla wiadomości użytkownika */
+  color: #ffffff; /* Biały tekst */
+  border-top-left-radius: 1.2rem;
+  border-bottom-left-radius: 1.2rem;
+  border-bottom-right-radius: 1.2rem;
+  border-top-right-radius: 0; /* Usunięcie zaokrąglenia w prawym górnym rogu */
 }
+
+/* Dodajemy osobny styl dla tekstu wiadomości użytkownika */
+.rag-message-user .rag-message-text {
+  color: #ffffff; /* Biały tekst w wiadomościach użytkownika */
+}
+
 .rag-message-bubble-agent {
-  border-top-right-radius: 1.2rem; /* było 0.75rem (12px) */
-  border-bottom-left-radius: 1.2rem; /* było 0.75rem (12px) */
-  border-bottom-right-radius: 1.2rem; /* było 0.75rem (12px) */
+  background-color: #f3f4f6;
+  border-top-right-radius: 1.2rem;
+  border-bottom-left-radius: 1.2rem;
+  border-bottom-right-radius: 1.2rem;
+  border-top-left-radius: 0; /* Usunięcie zaokrąglenia w lewym górnym rogu */
 }
 .rag-message-text {
+  margin: 0;
   white-space: pre-wrap;
+  font-family: var(--font-family);
+  color: #4a5568; /* Ciemniejszy kolor tekstu */
 }
 
 /* Input form */
 .rag-form {
-  padding: 1.6rem; /* było 1rem (16px) */
-  border-top: 1px solid #e5e7eb;
+  border-right: 1px solid #f0f0f0;
+  border-left: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+  padding: 1.2rem 1.6rem; /* Mniejszy vertical padding */
+  border-top-color: #f0f0f0; /* Jaśniejszy separator */
+  background-color: #ffffff; /* Zapewnienie białego tła */
 }
 .rag-form-container {
   display: flex;
   align-items: center;
+  /* border: 1px solid #e5e7eb; Dodany border wokół całego inputa */
+  /* border-radius: 2rem; Bardziej zaokrąglone rogi */
+  /* padding: 0.2rem 0.4rem 0.2rem 1.2rem; Padding wewnątrz kontenera */
+  /* background-color: #f9fafb; Jasne tło inputa */
 }
 .rag-form-container > * + * {
-  margin-left: 0.8rem; /* było 0.5rem (8px) */
+  margin-left: 0.4rem; /* Mniejszy odstęp */
 }
 .rag-textarea {
   flex: 1;
-  padding-left: 1.2rem; /* było 0.75rem (12px) */
-  padding-right: 1.2rem; /* było 0.75rem (12px) */
-  padding-top: 0.8rem; /* było 0.5rem (8px) */
-  padding-bottom: 0.8rem; /* było 0.5rem (8px) */
+  padding: 0.8rem 0.4rem 0.8rem 0;
   resize: none;
   background-color: transparent;
   text-wrap: wrap;
-  word-break: break-all;
+  word-break: normal;
   outline: none;
-  transition: all;
-  min-height: 40px;
-  max-height: 120px;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 1.4rem;
+  color: #4a5568;
+  
+  /* Ustawienia dla dynamicznej wysokości */
+  line-height: 1.4;
+  height: 2.4rem; /* Wysokość jednej linii (włączając padding) */
+  min-height: 2.4rem;
+  max-height: 6.4rem; /* Wysokość dla 3 linii tekstu */
+  overflow-y: auto; /* Auto overflow - scrollbar pojawi się tylko po przekroczeniu max-height */
+  transition: height 0.1s ease-out;
+}
+
+/* Udoskonalony styl dla textarea z automatyczną zmianą wysokości */
+.rag-textarea {
+  flex: 1;
+  padding: 0.8rem 0.4rem 0.8rem 0;
+  resize: none;
+  background-color: transparent;
+  text-wrap: wrap;
+  word-break: normal;
+  outline: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 1.4rem;
+  color: #4a5568;
+  
+  /* Ustawienia dla dynamicznej wysokości */
+  line-height: 1.4; /* Ważne aby skrypt JS mógł obliczyć wysokość linii */
+  overflow-y: hidden; /* Ukrywamy scrollbar */
+  transition: height 0.1s ease-out;
+  
+  /* Domyślna wysokość - jedna linia */
+  height: auto;
+  min-height: 2.4rem;
+}
+
+/* Finalny styl dla textarea */
+.rag-textarea {
+  flex: 1;
+  padding: 0.8rem 0.4rem 0.8rem 0;
+  resize: none;
+  background-color: transparent;
+  text-wrap: wrap;
+  word-break: normal;
+  outline: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 1.4rem;
+  color: #4a5568;
+  
+  /* Ustawienia dla dynamicznej wysokości */
+  line-height: 1.5; /* Precyzyjny rozmiar linii */
+  overflow-y: hidden; /* Ukrywamy scrollbar */
+  transition: height 0.1s ease-out;
+  
+  /* Domyślna wysokość - jedna linia tekstu */
+  min-height: 2.2rem; /* Kompensacja dla paddingu */
+  box-sizing: border-box; /* Uwzględnia padding w obliczeniach wysokości */
+
+  /* Wysokość początkowa - jedna linia (bez auto-height, ponieważ JS to ustawi) */
+  height: 2.2rem; 
+}
+
+/* Ukrywamy scrollbar w textarea */
+.rag-textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.rag-textarea {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Dodajemy pseudo-element aby uzyskać dokładną wysokość */
+.rag-textarea::after {
+  content: attr(data-replicated-value) " ";
+  white-space: pre-wrap;
+  visibility: hidden;
+}
+
+/* Gdy textarea jest w stanie focus lub ma treść */
+.rag-textarea:focus, 
+.rag-textarea:not(:placeholder-shown) {
+  height: auto; /* Automatyczna wysokość, ale ograniczona przez max-height */
+}
+
+.rag-textarea::placeholder {
+  color: #a0aec0; /* Jaśniejszy kolor dla placeholdera */
 }
 .rag-submit-button {
-  padding: 0.8rem; /* było 0.5rem (8px) */
+  padding: 0.6rem; /* Mniejszy padding */
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 9999px;
+}
+.rag-submit-button:hover {
+  background-color: #f3f4f6; /* Lekki hover effect */
 }
 .rag-submit-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 .rag-button-icon-small {
-  width: 2rem; /* było 1.25rem (20px) */
-  height: 2rem; /* było 1.25rem (20px) */
-  color: #000000;
+  width: 1.8rem; /* Mniejsza ikona */
+  height: 1.8rem;
+  color: #4a5568; /* Ciemniejszy kolor ikony */
 }
 .rag-spinner {
   animation: spin 1s linear infinite;
@@ -232,20 +393,114 @@
 
 /* Footer */
 .rag-footer {
-  padding-left: 1.6rem; /* było 1rem (16px) */
-  padding-right: 1.6rem; /* było 1rem (16px) */
-  padding-top: 1.2rem; /* było 0.75rem (12px) */
-  padding-bottom: 1.2rem; /* było 0.75rem (12px) */
+  padding: 0.8rem 1.6rem; /* Mniejszy padding */
   border-top: 1px solid #e5e7eb;
-  background-color: #f3f4f6;
+  border-left: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  background-color: #f9fafb; /* Jaśniejsze tło */
 }
 .rag-footer-desktop {
-  border-bottom-left-radius: 1.6rem; /* było 1rem (16px) */
-  border-bottom-right-radius: 1.6rem; /* było 1rem (16px) */
+  border-bottom-left-radius: 1.6rem;
+  border-bottom-right-radius: 1.6rem;
 }
 .rag-footer-text {
-  font-size: 1.4rem; /* było 0.875rem (14px) */
-  line-height: 2rem; /* było 1.25rem (20px) */
-  color: #6b7280;
+  margin: 0.05rem;
+  font-size: 1.2rem; /* Mniejszy tekst */
+  line-height: 1.6rem;
+  color: #9ca3af; /* Jaśniejszy kolor tekstu */
   text-align: center;
+  font-family: var(--font-family);
+}
+
+/* Dodajemy styl dla ikony wypełnienia (placeholder) w inputcie */
+.rag-textarea:focus {
+  outline: none;
+}
+
+/* Poprawione style dla avatarów - bez content */
+.rag-message-avatar-user {
+  background-color: #4b5563; /* Ciemnoszary kolor tła */
+  font-size: 1.2rem; /* Mniejszy rozmiar czcionki */
+  font-weight: 600; /* Półgruby */
+}
+.rag-message-avatar-agent {
+  background-color: #000000; /* Czarne tło */
+  font-size: 1.2rem; /* Mniejszy rozmiar czcionki */
+  font-weight: 600; /* Półgruby */
+}
+
+/* Poprawiony styl dla textarea z dynamiczną wysokością - podejście prostsze */
+.rag-textarea {
+  flex: 1;
+  padding: 0.8rem 0.4rem 0.8rem 0;
+  resize: none;
+  background-color: transparent;
+  text-wrap: wrap;
+  word-break: normal;
+  outline: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 1.4rem;
+  color: #4a5568;
+  
+  /* Ustawienia dla dynamicznej wysokości */
+  line-height: 1.4;
+  height: 2.4rem; /* Wysokość jednej linii (włączając padding) */
+  min-height: 2.4rem;
+  max-height: 6.4rem; /* Wysokość dla 3 linii tekstu */
+  overflow-y: auto; /* Auto overflow - scrollbar pojawi się tylko po przekroczeniu max-height */
+  transition: height 0.1s ease-out;
+}
+
+/* Nadpisanie globalnych styli focus-visible dla textarea */
+.rag-textarea:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: 0 2px 0 0 #f0f0f0 !important; /* Linia (shadow) pod textarea */
+}
+
+/* Style dla animacji kropek ładowania */
+.rag-loading-bubble {
+  padding: 1rem 1.4rem;
+  min-width: 60px;
+}
+
+.rag-loading-dots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rag-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #4a5568;
+  opacity: 0.7;
+}
+
+.rag-dot:nth-child(1) {
+  animation: dot-bounce 1.4s infinite ease-in-out;
+  animation-delay: 0s;
+}
+
+.rag-dot:nth-child(2) {
+  animation: dot-bounce 1.4s infinite ease-in-out;
+  animation-delay: 0.2s;
+}
+
+.rag-dot:nth-child(3) {
+  animation: dot-bounce 1.4s infinite ease-in-out;
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-6px);
+  }
 } 
